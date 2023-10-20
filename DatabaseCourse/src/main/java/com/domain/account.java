@@ -1,22 +1,22 @@
 package com.domain;
 
-public class account {
-    private Integer id;
-    private Integer password;
+public class Account {
+    private String id;
+    private String password;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public Integer getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public void setPassword(Integer password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 }
