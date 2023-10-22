@@ -7,10 +7,11 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-
+@Transactional
 public interface AccountService {
     //要返回服务端是否成功
     public boolean save(Account account);

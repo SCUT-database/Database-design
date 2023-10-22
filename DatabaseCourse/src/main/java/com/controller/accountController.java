@@ -25,12 +25,12 @@ public class AccountController {
         return true;
     };
     @DeleteMapping("/{id}")
-    public boolean delete(String ID){
+    public boolean delete(@PathVariable String ID){
         accountService.delete(ID);
         return true;
     };
     @GetMapping("/{id}")
-    public Account getbyID(String ID){
+    public Account getbyID(@PathVariable String ID){
         return accountService.getbyID(ID);
     };
     @GetMapping()
