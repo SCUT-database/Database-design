@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
 @ComponentScan({"com.service"})
-@PropertySource("jdbc.properties")
+@PropertySource("classpath:jdbc.properties")
 @Import({JdbcConfig.class,MybatisConfig.class})
 @EnableTransactionManagement
 public class SpringConfig {

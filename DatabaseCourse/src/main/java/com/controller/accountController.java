@@ -15,27 +15,34 @@ public class AccountController {
     private AccountService accountService;
 
     @PostMapping()
-    public boolean save(@RequestBody Account account){
-        accountService.save(account);
-        return true;
+    public AccountResult save(@RequestBody Account account){
+        boolean flag = accountService.save(account);
+        return new AccountResult(flag?Code.SAVE_OK:Code.SAVE_ERR,flag);
     };
     @PutMapping()
-    public boolean update(@RequestBody Account account){
-        accountService.update(account);
-        return true;
+    public AccountResult update(@RequestBody Account account){
+        boolean flag = accountService.update(account);
+        return new AccountResult(flag?Code.UPDATE_OK:Code.UPDATE_ERR,flag);
     };
     @DeleteMapping("/{id}")
-    public boolean delete(@PathVariable String ID){
-        accountService.delete(ID);
-        return true;
+    public AccountResult delete(@PathVariable String id){
+        boolean flag = accountService.delete(id);
+        return new AccountResult(flag?Code.DELETE_OK:Code.DELETE_ERR,flag);
     };
     @GetMapping("/{id}")
-    public Account getbyID(@PathVariable String ID){
-        return accountService.getbyID(ID);
+    public AccountResult getbyID(@PathVariable String id){
+        Account account = accountService.getbyID(id);
+        Integer code = account!=null ? Code.GET_OK : Code.GET_ERR;
+        String message = account!=null ? "" : "查询失败！请重试";
+        return new AccountResult(code,account,message);
     };
+
     @GetMapping()
-    public List<Account> getall(){
-        return accountService.getall();
+    public AccountResult getall(){
+        List<Account> accountList = accountService.getall();
+        Integer code = accountList!=null ? Code.GET_OK : Code.GET_ERR;
+        String message = accountList!=null ? "" : "查询失败！请重试";
+        return new AccountResult(code,accountList,message);
     };
 
 
