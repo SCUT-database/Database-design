@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login!</title>
+  <link rel="stylesheet" href="css/login-page.css">
+  <link rel="stylesheet" href="../plugins/elementui/index.css">
+  <link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
+</head>
+
+<body>
+<div class="container" id="app">
+<div class="container right-panel-active">
+  <!-- Sign Up -->
+  <div class="container__form container--signup">
+    <form action="#" class="form" id="form1">
+      <h2 class="form__title">Sign Up</h2>
+      <input type="text" placeholder="User" class="input" />
+      <input type="password" placeholder="Password" class="input" />
+      <button class="btn" @click="handleAdd">Sign Up</button>
+    </form>
+  </div>
+
+  <!-- Sign In -->
+  <div class="container__form container--signin">
+    <form action="#" class="form" id="form2">
+      <h2 class="form__title">Sign In</h2>
+      <input type="text" placeholder="User" class="input" />
+      <input type="password" placeholder="Password" class="input" />
+      <!--            <a href="#" class="link">Forgot your password?</a>-->
+      <button class="btn" @click="handlegetById">Sign In</button>
+    </form>
+  </div>
+  <div class="overlay__panel overlay--left">
+    <a class="btn" id="signIn" href="login-page.html">Sign In</a>
+  </div>
+
+
+</div>
+</div>
+
+<script src="src/main/webapp/js/vue.js" type="text/javascript" charset="utf-8"></script>
+
+<script>
+  const vue = new Vue({
+    el: '#app',
+    datalist: {},
+    comfirmData:{},
+    created() {
+      this.getAll()
+    },
+    methods: {
+      switch(){
+
+      },
+      getAll(){
+        axios.get("/account").then((res)=>{
+          this.datalist = res.data.data;
+        })
+      },
+      handleAdd(){
+
+      },
+      handleUpdate(){},
+      handleAddDelete(){},
+      handlegetById(){}
+    },
+  });
+</script>
+</body>
+</html>

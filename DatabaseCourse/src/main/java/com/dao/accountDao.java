@@ -10,11 +10,11 @@ import java.util.List;
 
 public interface AccountDao {
     @Insert("insert into account_table (id,password) values(#{id},#{password})")
-    public void save(Account account);
+    public int save(Account account);
     @Update("update account_table set password = #{password} where id = #{id}")
-    public void update(Account account);
+    public int update(Account account);
     @Delete("delete from account_table where id = #{id}")
-    public void delete(String ID);
+    public int delete(String ID);
     @Select("select * from account_table where id = #{id}")
     public Account getbyID(String ID);
     @Select("select * from account_table")

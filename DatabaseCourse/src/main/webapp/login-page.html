@@ -5,76 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login!</title>
     <link rel="stylesheet" href="css/login-page.css">
-<!--    <link rel="stylesheet" href="../plugins/elementui/index.css">-->
-<!--    <link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">-->
+    <link rel="stylesheet" href="../plugins/elementui/index.css">
+    <link rel="stylesheet" href="../plugins/font-awesome/css/font-awesome.min.css">
 </head>
 
 <body>
-<div id="app">
-<div class="container right-panel-active">
-    <!-- Sign Up -->
-    <div class="container__form container--signup">
-        <form action="#" class="form" id="form1">
-            <h2 class="form__title">Sign Up</h2>
-            <input type="text" placeholder="User" class="input" />
-            <input type="email" placeholder="Email" class="input" />
-            <input type="password" placeholder="Password" class="input" />
-            <button class="btn">Sign Up</button>
-        </form>
-    </div>
-
+<div class="container" id="app">
     <!-- Sign In -->
     <div class="container__form container--signin">
         <form action="#" class="form" id="form2">
-            <h2 class="form__title">Sign In</h2>
-            <input type="email" placeholder="Email" class="input" />
-            <input type="password" placeholder="Password" class="input" />
-            <a href="#" class="link">Forgot your password?</a>
-            <button class="btn">Sign In</button>
+            <input type="text" placeholder="User" class="input" v-model="id"/>
+            <input type="password" placeholder="Password" class="input" v-model="password"/>
+            <button class="btn" @click="handlegetById">Sign In</button>
         </form>
     </div>
-
-    <!-- Overlay -->
-    <div class="container__overlay">
-        <div class="overlay">
-            <div class="overlay__panel overlay--left">
-                <button class="btn" id="signIn">Sign In</button>
-            </div>
-            <div class="overlay__panel overlay--right">
-                <button class="btn" id="signUp">Sign Up</button>
-            </div>
-        </div>
+    <div class="overlay__panel overlay--right">
+        <a class="btn" id="signUp" href="signup-page.html">Sign Up</a>
     </div>
-</div>
+
 </div>
 
-<script src="src/main/webapp/js/vue.js" type="text/javascript" charset="utf-8"></script>
+<script src="vue.js" type="text/javascript" charset="utf-8"></script>
 
 <script>
-    const signInBtn = document.getElementById("signIn");
-    const signUpBtn = document.getElementById("signUp");
-    const fistForm = document.getElementById("form1");
-    const secondForm = document.getElementById("form2");
-    const container = document.querySelector(".container");
-
-    signInBtn.addEventListener("click", () => {
-        container.classList.remove("right-panel-active");
-    });
-
-    signUpBtn.addEventListener("click", () => {
-        container.classList.add("right-panel-active");
-    });
-
-    fistForm.addEventListener("submit", (e) => e.preventDefault());
-    secondForm.addEventListener("submit", (e) => e.preventDefault());
     const vue = new Vue({
         el: '#app',
-        data: {},
-        created() {
-            this.getAll()
+        $router: b,
+        data: {
+            id:'',
+            password:'',
+            confirmPassword:''
         },
+        // created() {
+        //     this.getAll()
+        // },
         methods: {
-            getAll(){}
+            // getAll(){
+            //     axios.get("/account").then((res)=>{
+            //         this.datalist = res.data.data;
+            //     })
+            // },
+            handlegetById(){
+                axios.get("account/" + this.id).then((res)=>{
+                    this.confirmPassword = res.data.data.password;
+                    if (this.confirmPassword === this.password) {
+                        window.location.href = 'src/main/webapp/buyer-page.html'
+                    } else {
+                        alert("密码或者账号错误")
+                    }
+                })
+            }
         },
     });
 </script>
