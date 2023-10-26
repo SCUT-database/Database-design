@@ -10,6 +10,7 @@
 </head>
 
 <body>
+<div id="app">
 <div class="container right-panel-active">
     <!-- Sign Up -->
     <div class="container__form container--signup">
@@ -45,6 +46,9 @@
         </div>
     </div>
 </div>
+</div>
+
+<script src="src/main/webapp/js/vue.js" type="text/javascript" charset="utf-8"></script>
 
 <script>
     const signInBtn = document.getElementById("signIn");
@@ -64,7 +68,7 @@
     fistForm.addEventListener("submit", (e) => e.preventDefault());
     secondForm.addEventListener("submit", (e) => e.preventDefault());
     const vue = new Vue({
-        el: '',
+        el: '#app',
         data: {},
         created() {
             this.getAll()
@@ -75,5 +79,4 @@
     });
 </script>
 </body>
-
 </html>
