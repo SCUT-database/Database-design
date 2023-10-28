@@ -26,11 +26,11 @@
 </div>
 
 <script src="vue.js" type="text/javascript" charset="utf-8"></script>
+<script src="axios-0.18.0.js"></script>
 
 <script>
     const vue = new Vue({
         el: '#app',
-        $router: b,
         data: {
             id:'',
             password:'',
@@ -46,10 +46,10 @@
             //     })
             // },
             handlegetById(){
-                axios.get("account/" + this.id).then((res)=>{
+                axios.get("/account/" + this.id).then((res)=>{
                     this.confirmPassword = res.data.data.password;
                     if (this.confirmPassword === this.password) {
-                        window.location.href = 'src/main/webapp/buyer-page.html'
+                        window.location.href = 'buyer-page.html'
                     } else {
                         alert("密码或者账号错误")
                     }
