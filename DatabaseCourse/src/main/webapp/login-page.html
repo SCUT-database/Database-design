@@ -36,15 +36,8 @@
             password:'',
             confirmPassword:''
         },
-        // created() {
-        //     this.getAll()
-        // },
+
         methods: {
-            // getAll(){
-            //     axios.get("/account").then((res)=>{
-            //         this.datalist = res.data.data;
-            //     })
-            // },
             handlegetById(){
                 axios.get("/account/" + this.id).then((res)=>{
                     this.confirmPassword = res.data.data.password;

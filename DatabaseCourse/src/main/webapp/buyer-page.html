@@ -1,10 +1,92 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <title>购书页面</title>
+    <link rel="stylesheet" href="css/buyer-page.css">
 </head>
-<body>
 
+<body>
+<div id="app">
+    <div class="header">
+        <input v-model="search" placeholder="搜索书名" class="search-input" @click="getNeedId">
+        <button @click="showTypeDialog" class="type-button">选择类型</button>
+    </div>
+    <div class="book-list">
+        <div class="book" v-for="book in filteredBooks" :key="book.id">
+            <img :src="book.image" alt="书本图片" class="book-image">
+            <div class="book-info">
+                <p class="book-name">{{ book.name }}</p>
+                <p class="book-type">类型: {{ book.type }}</p>
+                <p class="book-number">剩余数量: {{ book.number }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="vue.js" type="text/javascript" charset="utf-8"></script>
+<script src="axios-0.18.0.js"></script>
+<script>
+    new Vue({
+            el: '#app',
+            data: {
+                search: '',
+                selectedTypes: [],
+                books: [],
+                //formData: {},
+            },
+            created() {
+                this.getAll()
+            },
+            methods: {
+                showTypeDialog() {
+                    const selected = prompt('请选择书本类型（以逗号分隔）：');
+                    if (selected) {
+                    this.selectedTypes = selected.split(',').map(type => type.trim());
+                    }
+                },
+                getAll(){
+                    axios.get("/book").then((res)=>{
+                        this.books = res.data.data;
+                    })
+                },
+                getNeedType(){
+                    axios.get("/book/" + this.search).then((res)=>{
+                        if(res.data.code == 20041){
+                            this.books = res.data.data;
+                            this.getAll();
+                        }else if(res.data.code == 20040){
+                            this.search = '';
+                            alert("您输入的类型不存在");
+                        }
+                    })
+                },
+                getNeedId() {
+                    axios.get("/book/" + this.search).then((res) => {
+                        if (res.data.code == 20041) {
+                            this.books = res.data.data;
+                            this.getAll();
+                        } else if (res.data.code == 20040) {
+                            this.search = '';
+                            alert("找不到该书本");
+                        }
+                    })
+                },
+            },
+            computed: {
+                filteredBooks() {
+                    let filtered = this.books;
+                    if (this.selectedTypes.length > 0) {
+                        filtered = filtered.filter(book => this.selectedTypes.includes(book.type));
+                    }
+                    if (this.search) {
+                        const keyword = this.search.toLowerCase();
+                        filtered = filtered.filter(book => book.name.toLowerCase().includes(keyword));
+                    }
+                    return filtered;
+                },
+            },
+         });
+</script>
 </body>
 </html>
