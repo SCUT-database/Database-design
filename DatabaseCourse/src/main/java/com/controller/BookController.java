@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@RestController("bookcontroller")
 @RequestMapping("/book")
 public class BookController {
     @Autowired
@@ -19,21 +19,15 @@ public class BookController {
         return new BookResult(flag?Code.SAVE_OK:Code.SAVE_ERR,flag);
     };
 
-    @PostMapping()
-    public BookResult update(@RequestBody Book book){
-        boolean flag = bookService.save(book);
-        return new BookResult(flag?Code.UPDATE_OK:Code.UPDATE_ERR,flag);
-    }
-
-    @GetMapping("/{id}")
-    public BookResult getbyID(@PathVariable String id){
-        Book book = bookService.getbyID(id);
+    @GetMapping("/byName/{name}")
+    public BookResult getbyname(@PathVariable String name){
+        Book book = bookService.getbyname(name);
         Integer code = book!=null ? Code.GET_OK : Code.GET_ERR;
         String message = book!=null ? "" : "查询失败！请重试";
         return new BookResult(code,book,message);
     }
 
-    @GetMapping("/{type}")
+    @GetMapping("/byType/{type}")
     public BookResult getbyType(@PathVariable String type){
         List<Book> bookList = bookService.getbyType(type);
         Integer code = bookList!=null ? Code.GET_OK : Code.GET_ERR;

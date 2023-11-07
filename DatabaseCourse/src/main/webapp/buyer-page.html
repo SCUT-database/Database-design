@@ -10,15 +10,17 @@
 <div id="app">
     <div class="header">
         <input v-model="search" placeholder="搜索书名" class="search-input" @click="getNeedId">
+        <button @click="getNeedId" class="type-button">搜索</button>
         <button @click="showTypeDialog" class="type-button">选择类型</button>
     </div>
     <div class="book-list">
         <div class="book" v-for="book in filteredBooks" :key="book.id">
             <img :src="book.image" alt="书本图片" class="book-image">
             <div class="book-info">
-                <p class="book-name">{{ book.name }}</p>
-                <p class="book-type">类型: {{ book.type }}</p>
-                <p class="book-number">剩余数量: {{ book.number }}</p>
+                <p class="book-name">{{ book.book_name }}</p>
+                <p class="book-type">类型: {{ book.book_type }}</p>
+                <p class="book-number">剩余数量: {{ book.book_number }}</p>
+                <p class="book-number">价格: {{ book.book_price }}</p>
             </div>
         </div>
     </div>
@@ -51,10 +53,9 @@
                     })
                 },
                 getNeedType(){
-                    axios.get("/book/" + this.search).then((res)=>{
+                    axios.get("/book/byType/" + this.search).then((res)=>{
                         if(res.data.code == 20041){
                             this.books = res.data.data;
-                            this.getAll();
                         }else if(res.data.code == 20040){
                             this.search = '';
                             alert("您输入的类型不存在");
@@ -62,10 +63,10 @@
                     })
                 },
                 getNeedId() {
-                    axios.get("/book/" + this.search).then((res) => {
+                    axios.get("/book/byName/" + this.search).then((res) => {
                         if (res.data.code == 20041) {
                             this.books = res.data.data;
-                            this.getAll();
+                           //this.getAll();
                         } else if (res.data.code == 20040) {
                             this.search = '';
                             alert("找不到该书本");

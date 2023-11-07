@@ -9,14 +9,12 @@ import org.apache.ibatis.annotations.Update;
 import java.util.List;
 
 public interface BookDao {
-    @Insert("insert into account_table (id,password) values(#{id},#{password})")
+    @Insert("insert into book_table (id,password) values(#{id},#{password})")
     public int save(Book book);
-    @Update("update account_table set password = #{password} where id = #{id}")
-    public int update(Book book);
-    @Select("select * from account_table where id = #{id}")
-    public Book  getbyID(String id);
-    @Select("select * from account_table where type = #{type}")
+    @Select("select * from book_table where book_name = #{name}")
+    public Book getbyname(String name);
+    @Select("select * from book_table where book_type = #{type}")
     public List<Book> getbyType(String type);
-    @Select("select * from account_table")
+    @Select("select * from book_table")
     public List<Book> getall();
 }

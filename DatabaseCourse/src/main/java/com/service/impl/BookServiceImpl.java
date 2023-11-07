@@ -16,14 +16,11 @@ public class BookServiceImpl implements BookService {
     public boolean save(Book book){
         return bookDao.save(book) > 0;
     }
-    public boolean update(Book book){
-        return bookDao.update(book) > 0;
-    }
     public List<Book> getbyType(String type){
         return bookDao.getbyType(type);
     }
-    public Book getbyID(String ID){
-        return bookDao.getbyID(ID);
+    public Book getbyname(String name){
+        return bookDao.getbyname(name);
     }
     public List<Book> getall(){
         return bookDao.getall();

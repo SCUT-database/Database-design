@@ -2,23 +2,28 @@ package com;
 
 import com.config.SpringConfig;
 import com.domain.Account;
+import com.domain.Book;
 import com.service.AccountService;
+import com.service.BookService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.List;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringConfig.class)
 public class AccountServiceTest {
     @Autowired
-    private AccountService accountService;
+    private BookService bookService;
 
     @Test
     public void testgetbyID(){
-        Account account = accountService.getbyID("lxjfyc");
-        System.out.println(account.getId());
-        System.out.println(account.getPassword());
+        List<Book> bookList = bookService.getbyType("aaa");
+        for (Book book : bookList) {
+            System.out.println(book.getBook_name());
+        }
     }
 }

@@ -6,7 +6,7 @@
 
   <groupId>com.lxjfyc</groupId>
   <artifactId>database</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0-release</version>
   <packaging>war</packaging>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -89,5 +89,15 @@
       </plugin>
     </plugins>
   </build>
+<!--  <distributionManagement>-->
+<!--    <repository>-->
+<!--      <id>lxjfyc-release</id>-->
+<!--      <url>http://localhost:8081/repository/lxjfyc-release/</url>-->
+<!--    </repository>-->
+<!--    <snapshotRepository>-->
+<!--      <id>lxjfyc-snapshot</id>-->
+<!--      <url>http://localhost:8081/repository/lxjfyc-snapshot/</url>-->
+<!--    </snapshotRepository>-->
+<!--  </distributionManagement>-->
 </project>
 
