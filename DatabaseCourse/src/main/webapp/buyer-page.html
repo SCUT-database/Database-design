@@ -9,12 +9,13 @@
 <body>
 <div id="app">
     <div class="header">
-        <input v-model="search" placeholder="搜索书名" class="search-input" @click="getNeedId">
+        <input v-model="search" placeholder="搜索书名" class="search-input">
         <button @click="getNeedId" class="type-button">搜索</button>
         <button @click="showTypeDialog" class="type-button">选择类型</button>
     </div>
+    <template>
     <div class="book-list">
-        <div class="book" v-for="book in filteredBooks" :key="book.id">
+        <div class="book" v-for="book in books" :key="book.id">
             <img :src="book.image" alt="书本图片" class="book-image">
             <div class="book-info">
                 <p class="book-name">{{ book.book_name }}</p>
@@ -24,6 +25,7 @@
             </div>
         </div>
     </div>
+    </template>
 </div>
 
 <script src="vue.js" type="text/javascript" charset="utf-8"></script>
@@ -41,19 +43,16 @@
                 this.getAll()
             },
             methods: {
-                showTypeDialog() {
+                transform(){
+                    // 中文字符串
+                    const chineseText = "abc";
+                    const encodedText = encodeURIComponent(chineseText);
+                    console.log(encodedText); // 输出 "%E4%BD%A0%E5%A5%BD%E4%B8%96%E7%95%8C"
+                },
+                getNeedType() {
                     const selected = prompt('请选择书本类型（以逗号分隔）：');
-                    if (selected) {
-                    this.selectedTypes = selected.split(',').map(type => type.trim());
-                    }
-                },
-                getAll(){
-                    axios.get("/book").then((res)=>{
-                        this.books = res.data.data;
-                    })
-                },
-                getNeedType(){
-                    axios.get("/book/byType/" + this.search).then((res)=>{
+                    let temp = encodeURIComponent(selected);
+                    axios.get("/book/byType/" + temp).then((res)=>{
                         if(res.data.code == 20041){
                             this.books = res.data.data;
                         }else if(res.data.code == 20040){
@@ -62,10 +61,19 @@
                         }
                     })
                 },
+                getAll(){
+                    axios.get("/book").then((res)=>{
+                        this.books = res.data.data;
+                        console.log(res.data.data)
+                    })
+                },
                 getNeedId() {
-                    axios.get("/book/byName/" + this.search).then((res) => {
+                    let temp = encodeURIComponent(this.search);
+                    axios.get("/book/byName/" + temp).then((res) => {
                         if (res.data.code == 20041) {
-                            this.books = res.data.data;
+                            this.books= JSON.parse(JSON.stringify(res.data.data));
+                            this.search = '';
+                            console.log(this.books)
                            //this.getAll();
                         } else if (res.data.code == 20040) {
                             this.search = '';

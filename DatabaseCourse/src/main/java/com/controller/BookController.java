@@ -21,10 +21,10 @@ public class BookController {
 
     @GetMapping("/byName/{name}")
     public BookResult getbyname(@PathVariable String name){
-        Book book = bookService.getbyname(name);
-        Integer code = book!=null ? Code.GET_OK : Code.GET_ERR;
-        String message = book!=null ? "" : "查询失败！请重试";
-        return new BookResult(code,book,message);
+        List<Book> bookList = bookService.getbyname(name);
+        Integer code = bookList!=null ? Code.GET_OK : Code.GET_ERR;
+        String message = bookList!=null ? "" : "查询失败！请重试";
+        return new BookResult(code,bookList,message);
     }
 
     @GetMapping("/byType/{type}")

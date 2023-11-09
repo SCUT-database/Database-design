@@ -19,7 +19,7 @@ public class BookServiceImpl implements BookService {
     public List<Book> getbyType(String type){
         return bookDao.getbyType(type);
     }
-    public Book getbyname(String name){
+    public List<Book>getbyname(String name){
         return bookDao.getbyname(name);
     }
     public List<Book> getall(){

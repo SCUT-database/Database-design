@@ -10,6 +10,6 @@ import java.util.List;
 public interface BookService {
     public boolean save(Book book);
     public List<Book> getbyType(String type);
-    public Book getbyname(String id);
+    public List<Book> getbyname(String id);
     public List<Book> getall();
 }

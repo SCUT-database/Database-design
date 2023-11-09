@@ -12,7 +12,7 @@ public interface BookDao {
     @Insert("insert into book_table (id,password) values(#{id},#{password})")
     public int save(Book book);
     @Select("select * from book_table where book_name = #{name}")
-    public Book getbyname(String name);
+    public List<Book> getbyname(String name);
     @Select("select * from book_table where book_type = #{type}")
     public List<Book> getbyType(String type);
     @Select("select * from book_table")
