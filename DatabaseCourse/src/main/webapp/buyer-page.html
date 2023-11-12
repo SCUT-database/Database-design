@@ -11,7 +11,7 @@
     <div class="header">
         <input v-model="search" placeholder="搜索书名" class="search-input">
         <button @click="getNeedId" class="type-button">搜索</button>
-        <button @click="showTypeDialog" class="type-button">选择类型</button>
+        <button @click="getNeedType" class="type-button">选择类型</button>
     </div>
     <template>
     <div class="book-list">
@@ -22,6 +22,7 @@
                 <p class="book-type">类型: {{ book.book_type }}</p>
                 <p class="book-number">剩余数量: {{ book.book_number }}</p>
                 <p class="book-number">价格: {{ book.book_price }}</p>
+                <button class="type-button" @click="showBookInformation(book)">购买</button>
             </div>
         </div>
     </div>
@@ -50,7 +51,7 @@
                     console.log(encodedText); // 输出 "%E4%BD%A0%E5%A5%BD%E4%B8%96%E7%95%8C"
                 },
                 getNeedType() {
-                    const selected = prompt('请选择书本类型（以逗号分隔）：');
+                    const selected = prompt('请选择书本类型：');
                     let temp = encodeURIComponent(selected);
                     axios.get("/book/byType/" + temp).then((res)=>{
                         if(res.data.code == 20041){
@@ -69,18 +70,26 @@
                 },
                 getNeedId() {
                     let temp = encodeURIComponent(this.search);
+                    console.log(temp)
                     axios.get("/book/byName/" + temp).then((res) => {
-                        if (res.data.code == 20041) {
+                        if (res.data.data != null) {
                             this.books= JSON.parse(JSON.stringify(res.data.data));
                             this.search = '';
-                            console.log(this.books)
                            //this.getAll();
-                        } else if (res.data.code == 20040) {
+                        } else if (res.data.data == null) {
                             this.search = '';
                             alert("找不到该书本");
                         }
                     })
                 },
+                showBookInformation(book){
+                    console.log(book)
+                    if (book) {
+                        localStorage.setItem('selectedBook', JSON.stringify(book));
+                        console.log('书籍信息已保存到LocalStorage');
+                        window.location.href = 'book-page.html'
+                    }
+                }
             },
             computed: {
                 filteredBooks() {

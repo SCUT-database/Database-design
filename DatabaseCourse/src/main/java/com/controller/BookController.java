@@ -17,7 +17,13 @@ public class BookController {
     public BookResult save(@RequestBody Book book){
         boolean flag = bookService.save(book);
         return new BookResult(flag?Code.SAVE_OK:Code.SAVE_ERR,flag);
-    };
+    }
+
+    @PutMapping()
+    public BookResult update(@PathVariable String name){
+        boolean flag = bookService.update(name);
+        return new BookResult(flag?Code.UPDATE_OK:Code.UPDATE_ERR,flag);
+    }
 
     @GetMapping("/byName/{name}")
     public BookResult getbyname(@PathVariable String name){

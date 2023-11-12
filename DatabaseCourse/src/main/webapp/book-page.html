@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>使用 Vue.js 的书籍信息</title>
+    <link rel="stylesheet" href="css/book-page.css">
+</head>
+<body>
+
+<div id="app" class="book-container">
+    <h2>使用 Vue.js 的书籍信息</h2>
+
+    <img class="book-image" :src="book.image" alt="书籍图片">
+
+    <div class="book-info">
+        <p><strong>书名：</strong> {{ book.book_name }}</p>
+        <p><strong>类型：</strong> {{ book.book_type }}</p>
+        <p><strong>剩余数量：</strong> {{ book.book_number }}</p>
+        <p><strong>价格：</strong> ¥{{ book.book_price.toFixed(2) }}</p>
+    </div>
+
+    <button class="buy-button" @click="confirmPurchase">确认购买</button>
+    <button class="buy-button" @click="backTohome">返回主页</button>
+</div>
+
+<script src="vue.js" type="text/javascript" charset="utf-8"></script>
+<script src="axios-0.18.0.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            book: {} // 书籍信息将从这里获取和存储
+        },
+        created() {
+            // 从 localStorage 获取书籍信息
+            const storedBookInfo = localStorage.getItem('selectedBook');
+
+            if (storedBookInfo) {
+                // 将存储的字符串转换为对象
+                this.book = JSON.parse(storedBookInfo);
+            } else {
+                console.log('在 localStorage 中找不到书籍信息。');
+            }
+        },
+        methods: {
+            confirmPurchase() {
+                alert('购买确认！');
+            },
+            backTohome(){
+                window.location.href = 'buyer-page.html'
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
