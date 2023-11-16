@@ -28,5 +28,8 @@ public class BookServiceImpl implements BookService {
     public List<Book> getall(){
         return bookDao.getall();
     }
+    public List<Book> getShopBook(String shopName){
+        return bookDao.getShopBook(shopName);
+    };
 
 }

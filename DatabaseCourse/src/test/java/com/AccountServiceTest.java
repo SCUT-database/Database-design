@@ -3,8 +3,10 @@ package com;
 import com.config.SpringConfig;
 import com.domain.Account;
 import com.domain.Book;
+import com.domain.Shop;
 import com.service.AccountService;
 import com.service.BookService;
+import com.service.ShopService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +19,12 @@ import java.util.List;
 @ContextConfiguration(classes = SpringConfig.class)
 public class AccountServiceTest {
     @Autowired
-    private BookService bookService;
+    private ShopService shopService;
 
     @Test
     public void testgetbyID(){
-        List<Book> bookList = bookService.getbyType("aaa");
-        for (Book book : bookList) {
-            System.out.println(book.getBook_name());
-        }
+        Shop shop = shopService.getbyID("lxjfyc");
+        System.out.println(shop.getShop_password());
+
     }
 }

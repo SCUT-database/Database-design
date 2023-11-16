@@ -1,16 +1,16 @@
 package com.controller;
 
-public class BookResult {
+public class Result {
     private Object data;
     public Integer code;
     public String message;
 
-    public BookResult(Integer code,Object data ) {
+    public Result(Integer code,Object data ) {
         this.data = data;
         this.code = code;
     }
 
-    public BookResult(Integer code, Object data,  String message) {
+    public Result(Integer code, Object data,  String message) {
         this.data = data;
         this.code = code;
         this.message = message;

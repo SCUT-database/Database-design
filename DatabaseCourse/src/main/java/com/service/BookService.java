@@ -13,4 +13,5 @@ public interface BookService {
     public List<Book> getbyType(String type);
     public List<Book> getbyname(String id);
     public List<Book> getall();
+    public List<Book> getShopBook(String shopName);
 }

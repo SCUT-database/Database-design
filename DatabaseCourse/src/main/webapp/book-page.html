@@ -10,11 +10,9 @@
 <body>
 
 <div id="app" class="book-container">
-    <h2>使用 Vue.js 的书籍信息</h2>
-
-    <img class="book-image" :src="book.image" alt="书籍图片">
-
+    <h2>书籍信息</h2>
     <div class="book-info">
+        <img src="photo/1.png" class="book-image">
         <p><strong>书名：</strong> {{ book.book_name }}</p>
         <p><strong>类型：</strong> {{ book.book_type }}</p>
         <p><strong>剩余数量：</strong> {{ book.book_number }}</p>
@@ -46,6 +44,8 @@
         },
         methods: {
             confirmPurchase() {
+                const input1 = prompt("请输入您的邮箱：");
+                const input2 = prompt("请输入您的地址：");
                 alert('购买确认！');
             },
             backTohome(){
