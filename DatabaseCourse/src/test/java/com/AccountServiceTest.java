@@ -19,12 +19,12 @@ import java.util.List;
 @ContextConfiguration(classes = SpringConfig.class)
 public class AccountServiceTest {
     @Autowired
-    private ShopService shopService;
+    private BookService bookService;
 
     @Test
     public void testgetbyID(){
-        Shop shop = shopService.getbyID("lxjfyc");
-        System.out.println(shop.getShop_password());
-
+        String name = "心灵捕手";
+        List<Book> book = bookService.getbyname(name);
+        System.out.println(book);
     }
 }

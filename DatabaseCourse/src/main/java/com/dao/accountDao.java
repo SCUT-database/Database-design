@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
-public interface AccountDao {
+public interface AccountDao{
     @Insert("insert into account_table (id,password) values(#{id},#{password})")
     public int save(Account account);
     @Update("update account_table set password = #{password} where id = #{id}")

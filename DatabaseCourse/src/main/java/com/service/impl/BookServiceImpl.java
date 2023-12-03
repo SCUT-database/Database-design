@@ -30,6 +30,9 @@ public class BookServiceImpl implements BookService {
     }
     public List<Book> getShopBook(String shopName){
         return bookDao.getShopBook(shopName);
-    };
+    }
 
+    public boolean delete(String name){
+        return bookDao.delete(name) > 0;
+    }
 }

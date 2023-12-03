@@ -95,7 +95,7 @@
         <artifactId>tomcat7-maven-plugin</artifactId>
         <version>2.1</version>
         <configuration>
-          <port>80</port>
+          <port>8080</port>
           <path>/</path>
         </configuration>
       </plugin>
@@ -106,10 +106,6 @@
 <!--      <id>lxjfyc-release</id>-->
 <!--      <url>http://localhost:8081/repository/lxjfyc-release/</url>-->
 <!--    </repository>-->
-<!--    <snapshotRepository>-->
-<!--      <id>lxjfyc-snapshot</id>-->
-<!--      <url>http://localhost:8081/repository/lxjfyc-snapshot/</url>-->
-<!--    </snapshotRepository>-->
 <!--  </distributionManagement>-->
 </project>
 

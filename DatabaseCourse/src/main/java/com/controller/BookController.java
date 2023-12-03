@@ -55,5 +55,11 @@ public class BookController {
         Integer code = booktList!=null ? Code.GET_OK : Code.GET_ERR;
         String message = booktList!=null ? "" : "查询失败！请重试";
         return new Result(code,booktList,message);
-    };
+    }
+
+    @DeleteMapping("/{name}")
+    public Result delete(@PathVariable String name){
+        boolean flag = bookService.delete(name);
+        return new Result(flag?Code.DELETE_OK:Code.DELETE_ERR,flag);
+    }
 }

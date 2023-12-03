@@ -21,4 +21,7 @@ public interface BookDao {
     public List<Book> getShopBook(String shopName);
     @Update("update book_table set book_number = book_number - 1 where book_name = #{name}")
     public int update(String name);
+
+    @Delete("delete from book_table where book_name = #{name}")
+    public int delete(String name);
 }
