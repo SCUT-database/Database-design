@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vue 购物车</title>
+  <title>购物车</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -70,15 +70,15 @@
   <div v-for="(item, index) in cartItems" :key="index" class="cart-item">
     <img src="photo/1.png" >
     <div class="cart-item-info">
-      <h3>{{ item.book_name }}</h3>
-      <p>价格: ${{ item.book_price.toFixed(2) }}</p>
-      <p>数量: {{ item.book_quantity }}</p>
+      <h3>{{ item[0].book_name }}</h3>
+      <p>价格: ${{ item[0].book_price.toFixed(2)}}</p>
+      <p>数量: {{ item[0].book_number}}</p>
     </div>
   </div>
 
-  <div class="cart-total">
-    总计: ${{ getTotal().toFixed(2) }}
-  </div>
+<!--  <div class="cart-total">-->
+<!--    总计: ${{ getTotal().toFixed(2) }}-->
+<!--  </div>-->
 
   <button @click="checkout" class="checkout-btn">结算</button>
 </div>
@@ -90,32 +90,29 @@
     el: '#app',
     data: {
       cartItems: [],
-      cartName:[]
+      cartName:[],
+      totalPrice:[]
     },
-    create(){
+    created(){
       this.getAll()
     },
     methods: {
-      getAll() {
-        const cart_Books = localStorage.getItem('cartBooks');
-        // if (cart_Books) {
-        //   // 将存储的字符串转换为对象
-        //   this.cartName = JSON.parse(cart_Books);
-        // } else {
-        //   console.log('在 localStorage 中找不到书籍信息。');
-        // }
-        for (let i = 0; i < this.cartName.length; i++) {
-          const book = axios.get("/book/byName/" + this.cartName[i]).then((res) => {
-            console.log(book)
+      getAll(){
+        const cartbooks = JSON.parse(localStorage.getItem('cartBooks')) || [];
+        for (let i = 0; i < cartbooks.length; i++) {
+          axios.get("/book/byName/" + cartbooks[i]).then((res) => {
+            const book = res.data.data;
+            this.totalPrice +=  book[0].book_price
+            this.cartItems.push(book);
           })
-          this.cartItems.push(book);
         }
-        // console.log(this.cartItems)
+        console.log(this.cartItems)
       },
-
       checkout() {
-        // 实现结算逻辑，可以根据需求添加更多的业务逻辑
         alert('结算成功！');
+        this.totalPrice = 0;
+        this.cartItems = [];
+        localStorage.clear();
       }
     }
   });
