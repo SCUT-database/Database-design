@@ -18,9 +18,9 @@
         <p><strong>剩余数量：</strong> {{ book.book_number }}</p>
         <p><strong>价格：</strong> ¥{{ book.book_price.toFixed(2) }}</p>
     </div>
-
-    <button class="buy-button" @click="confirmPurchase">确认购买</button>
+    <button class="buy-button" @click="confirmPurchase">购买</button>
     <button class="buy-button" @click="backTohome">返回主页</button>
+    <button class="buy-button" @click="add2cart">加入购物车</button>
 </div>
 
 <script src="vue.js" type="text/javascript" charset="utf-8"></script>
@@ -46,10 +46,20 @@
             confirmPurchase() {
                 const input1 = prompt("请输入您的邮箱：");
                 const input2 = prompt("请输入您的地址：");
-                alert('购买确认！');
+                alert('成功购买！');
             },
             backTohome(){
                 window.location.href = 'buyer-page.html'
+            },
+            add2cart(){
+                const cartItems = JSON.parse(localStorage.getItem('cartBooks')) || [];
+                const bookNameToAdd = this.book.book_name;
+                const isBookNameAlreadyInCart = cartItems.includes(bookNameToAdd);
+                if (!isBookNameAlreadyInCart) {
+                    cartItems.push(bookNameToAdd);
+                    localStorage.setItem('cartBooks', JSON.stringify(cartItems));
+                }
+                console.log(cartItems);
             }
         }
     });

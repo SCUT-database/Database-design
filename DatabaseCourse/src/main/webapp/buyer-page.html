@@ -12,6 +12,7 @@
         <input v-model="search" placeholder="搜索书名" class="search-input">
         <button @click="getNeedId" class="type-button">搜索</button>
         <button @click="getNeedType" class="type-button">选择类型</button>
+        <button @click="go2cart" class="type-button">购物车</button>
     </div>
     <template>
     <div class="book-list">
@@ -41,6 +42,7 @@
                 //formData: {},
             },
             created() {
+
                 this.getAll()
             },
             methods: {
@@ -89,6 +91,9 @@
                         console.log('书籍信息已保存到LocalStorage');
                         window.location.href = 'book-page.html'
                     }
+                },
+                go2cart(){
+                    window.location.href = "cart.html" ;
                 }
             },
             computed: {

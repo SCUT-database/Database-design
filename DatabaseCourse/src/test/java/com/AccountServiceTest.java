@@ -23,7 +23,7 @@ public class AccountServiceTest {
 
     @Test
     public void testgetbyID(){
-        String name = "心灵捕手";
+        String name = "abc";
         List<Book> book = bookService.getbyname(name);
         System.out.println(book);
     }

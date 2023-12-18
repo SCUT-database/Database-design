@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue 购物车</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    #app {
+      max-width: 600px;
+      width: 100%;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ccc;
+      padding: 10px 0;
+    }
+
+    .cart-item img {
+      max-width: 80px;
+      max-height: 80px;
+      margin-right: 10px;
+    }
+
+    .cart-item-info {
+      flex-grow: 1;
+    }
+
+    .cart-total {
+      margin-top: 10px;
+      text-align: right;
+      font-size: 1.2em;
+    }
+
+    .checkout-btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #4caf50;
+      color: #fff;
+      text-align: center;
+      text-decoration: none;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <h1>购物车</h1>
+
+  <div v-for="(item, index) in cartItems" :key="index" class="cart-item">
+    <img src="photo/1.png" >
+    <div class="cart-item-info">
+      <h3>{{ item.book_name }}</h3>
+      <p>价格: ${{ item.book_price.toFixed(2) }}</p>
+      <p>数量: {{ item.book_quantity }}</p>
+    </div>
+  </div>
+
+  <div class="cart-total">
+    总计: ${{ getTotal().toFixed(2) }}
+  </div>
+
+  <button @click="checkout" class="checkout-btn">结算</button>
+</div>
+
+<script src="vue.js" type="text/javascript" charset="utf-8"></script>
+<script src="axios-0.18.0.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      cartItems: [],
+      cartName:[]
+    },
+    create(){
+      this.getAll()
+    },
+    methods: {
+      getAll() {
+        const cart_Books = localStorage.getItem('cartBooks');
+        // if (cart_Books) {
+        //   // 将存储的字符串转换为对象
+        //   this.cartName = JSON.parse(cart_Books);
+        // } else {
+        //   console.log('在 localStorage 中找不到书籍信息。');
+        // }
+        for (let i = 0; i < this.cartName.length; i++) {
+          const book = axios.get("/book/byName/" + this.cartName[i]).then((res) => {
+            console.log(book)
+          })
+          this.cartItems.push(book);
+        }
+        // console.log(this.cartItems)
+      },
+
+      checkout() {
+        // 实现结算逻辑，可以根据需求添加更多的业务逻辑
+        alert('结算成功！');
+      }
+    }
+  });
+</script>
+</body>
+</html>
